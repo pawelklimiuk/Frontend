@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Pobierz kod z repo') {
             steps {
-                git branch: 'main', url: 'https://github.com/pawelklimiuk/Frontend'
+                checkout scm
             }
         }
         
