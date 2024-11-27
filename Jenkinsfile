@@ -39,13 +39,14 @@ pipeline {
         stage('Budujemy kontener z aplikacja') {
             steps {
                 script {
-                    dockerTag = "RC-${env.BUILD_ID}"
+                    // dockerTag = "RC-${env.BUILD_ID}"
+                    dockerTag = "RC-${env.BUILD_ID}.${env.GIT_COMMIT.take(7)}"
                     applicationImage = docker.build("$imageName:$dockerTag")
                 }
             }
         }
         
-        stage ('Wypychamy image do artifactory do docker registry') {
+        stage ('Wypychamy image do docker registry') {
             steps {
                 script {
                     docker.withRegistry("$dockerRegistry", "$registryCredentials") {
