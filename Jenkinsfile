@@ -5,9 +5,10 @@ def registryCredentials="dockerhub"
 
 
 pipeline {
-    agent {
-         label 'agent'
-    }
+    agent any 
+    //  {
+    //     label 'agent'
+    // }
     
     environment {
         PIP_BREAK_SYSTEM_PACKAGES = 1
