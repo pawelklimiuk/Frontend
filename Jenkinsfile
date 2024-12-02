@@ -57,7 +57,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage ('Push to Repo') {
             steps {
                 dir('ArgoCD') {
@@ -79,8 +79,8 @@ pipeline {
             junit testResults: "test-results/*.xml"
             cleanWs()
         }
-        success {
+        //success {
             //build job: 'app_of_apps', parameters: [ string(name: 'frontendDockerTag', value: "$dockerTag")], wait: false
-        }
+        //}
     }
 }
