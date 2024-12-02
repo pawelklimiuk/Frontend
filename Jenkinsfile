@@ -21,22 +21,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Setup Git User') {
-            steps {
-                // Using credentials from Jenkins Credentials Store
-               // withCredentials([usernamePassword(
-                //    credentialsId: 'git-credentials', 
-               //     usernameVariable: 'GIT_USER_NAME', 
-                //    passwordVariable: 'GIT_PASSWORD'
-                //)])
-                 {
-                    sh """
-                        git config user.name "${GIT_USER_NAME}"
-                        git config user.email "${GIT_USER_NAME}@yourcompany.com"
-                    """
-                }
-            }
-        }
+        
         stage('Wykonaj testy') {
             steps {
                 sh "pip3 install -r requirements.txt"
@@ -77,7 +62,7 @@ pipeline {
             steps {
                 dir('ArgoCD') {
                     withCredentials([gitUsernamePassword(credentialsId: 'git', gitToolName: 'Default')]) {
-                        git branch: 'main', url: 'https://github.com/Panda-Academy-Core-2-0/ArgoCD.git'
+                        git branch: 'main', url: 'https://github.com/pawelklimiuk/ArgoCD'
                         sh """ cd frontend
                         sed -i "s#$imageName.*#$imageName:$dockerTag#g" deployment.yaml
                         git commit -am "Set new $dockerTag tag."
