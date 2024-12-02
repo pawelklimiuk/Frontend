@@ -21,7 +21,22 @@ pipeline {
                 checkout scm
             }
         }
-        
+        stage('Setup Git User') {
+            steps {
+                // Using credentials from Jenkins Credentials Store
+               // withCredentials([usernamePassword(
+                //    credentialsId: 'git-credentials', 
+               //     usernameVariable: 'GIT_USER_NAME', 
+                //    passwordVariable: 'GIT_PASSWORD'
+                //)])
+                 {
+                    sh """
+                        git config user.name "${GIT_USER_NAME}"
+                        git config user.email "${GIT_USER_NAME}@yourcompany.com"
+                    """
+                }
+            }
+        }
         stage('Wykonaj testy') {
             steps {
                 sh "pip3 install -r requirements.txt"
